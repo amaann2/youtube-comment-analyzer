@@ -41,11 +41,11 @@ def get_video_details(video_id: str):
 
 def get_comments(video_id: str):
     """
-    Fetch comments using the YouTube Data API.
+    Fetch comments and their replies using the YouTube Data API.
     """
     comments = []
     params = {
-        "part": "snippet",
+        "part": "snippet,replies", 
         "videoId": video_id,
         "maxResults": 100,
         "key": settings.google_cloud_api_key
@@ -57,20 +57,37 @@ def get_comments(video_id: str):
         if "items" in response:
             for item in response["items"]:
                 comment = item["snippet"]["topLevelComment"]["snippet"]
-                comments.append({
+                comment_data = {
                     "author": comment["authorDisplayName"],
                     "comment": comment["textDisplay"],
                     "like_count": comment["likeCount"],
-                    "published_at": comment["publishedAt"]
-                })
+                    "published_at": comment["publishedAt"],
+                    "replies": [] 
+                }
+
+                
+                if "replies" in item:
+                    for reply in item["replies"]["comments"]:
+                        reply_snippet = reply["snippet"]
+                        reply_data = {
+                            "author": reply_snippet["authorDisplayName"],
+                            "comment": reply_snippet["textDisplay"],
+                            "like_count": reply_snippet["likeCount"],
+                            "published_at": reply_snippet["publishedAt"]
+                        }
+                        comment_data["replies"].append(reply_data)
+                comments.append(comment_data)
+                
         else:
             break
 
+        # Handle pagination
         if "nextPageToken" in response:
             params["pageToken"] = response["nextPageToken"]
         else:
             break
-    print(f"Extracted {len(comments)} comments.")
+
+    print(f"Extracted {len(comments)} comments with replies.")
     return comments[:MAX_COMMENTS_TO_EXTRACT]
 
 def save_data_as_json(data: dict, video_id: str) -> str:
