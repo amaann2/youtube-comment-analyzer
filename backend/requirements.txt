@@ -1,0 +1,11 @@
+beautifulsoup4==4.12.3
+pandas==2.2.3
+requests==2.32.3
+selenium==4.26.1
+python-dotenv==1.0.1
+
+fastapi==0.111.1
+uvicorn==0.30.5
+pydantic==2.8.2
+pydantic-settings==2.4.0
+langchain==0.2.13

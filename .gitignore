@@ -304,4 +304,4 @@ tags
 nohup.out
 .env
 
-firebase-service-account.json
+media/
