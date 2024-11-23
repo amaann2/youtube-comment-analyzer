@@ -35,7 +35,7 @@ const Hero = () => {
     };
 
     const navigateToAnalysisPage = (id) => {
-        const modifiedUrl = `http://localhost:5173/analysis/${id}`;
+        const modifiedUrl = `${window.location.origin}/analysis/${id}`;
         window.open(modifiedUrl, "_blank");
 
         // const link = document.createElement("a");
