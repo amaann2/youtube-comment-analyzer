@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app import settings 
 from app.api.routers import api_router
+from fastapi.staticfiles import StaticFiles
 app= FastAPI(
     title=settings.project_name,
     version=settings.version,
@@ -18,7 +19,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+app.mount("/media", StaticFiles(directory="media"), name="media")
 @app.get("/")
 async def root():
     return {"message": f"Welcome to {settings.project_name}"}

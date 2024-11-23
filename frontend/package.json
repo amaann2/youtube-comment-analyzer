@@ -10,17 +10,30 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@relume_io/relume-tailwind": "^0.7.0",
+    "@relume_io/relume-ui": "^0.7.0",
+    "antd": "^5.22.2",
+    "axios": "^1.7.7",
+    "d3": "^7.9.0",
+    "d3-cloud": "^1.2.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "react-icons": "^5.3.0",
+    "react-router-dom": "^7.0.1",
+    "recharts": "^2.13.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
     "vite": "^5.2.0"
   }
 }

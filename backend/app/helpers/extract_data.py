@@ -1,11 +1,6 @@
 import requests
-import json
-import os
 from app import settings
 
-VIDEO_DETAILS_URL = "https://www.googleapis.com/youtube/v3/videos"
-COMMENTS_URL = "https://www.googleapis.com/youtube/v3/commentThreads"
-MAX_COMMENTS_TO_EXTRACT = 6000
 
 def get_video_id_from_url(url: str) -> str:
     """
@@ -24,7 +19,7 @@ def get_video_details(video_id: str):
         "part": "snippet,statistics",
         "key": settings.google_cloud_api_key
     }
-    response = requests.get(VIDEO_DETAILS_URL, params=params).json()
+    response = requests.get('https://www.googleapis.com/youtube/v3/videos', params=params).json()
 
     if "items" in response and response["items"]:
         video = response["items"][0]
@@ -39,7 +34,7 @@ def get_video_details(video_id: str):
         }
     raise ValueError("Failed to fetch video details or API quota exceeded.")
 
-def get_comments(video_id: str):
+def get_comments(video_id: str, max_comments: int):
     """
     Fetch comments and their replies using the YouTube Data API.
     """
@@ -51,8 +46,8 @@ def get_comments(video_id: str):
         "key": settings.google_cloud_api_key
     }
 
-    while len(comments) < MAX_COMMENTS_TO_EXTRACT:
-        response = requests.get(COMMENTS_URL, params=params).json()
+    while len(comments) < max_comments:
+        response = requests.get('https://www.googleapis.com/youtube/v3/commentThreads', params=params).json()
 
         if "items" in response:
             for item in response["items"]:
@@ -88,17 +83,5 @@ def get_comments(video_id: str):
             break
 
     print(f"Extracted {len(comments)} comments with replies.")
-    return comments[:MAX_COMMENTS_TO_EXTRACT]
+    return comments[:max_comments]
 
-def save_data_as_json(data: dict, video_id: str) -> str:
-    """
-    Save video details and comments as a JSON file.
-    """
-    directory = os.path.join(settings.static_dir, video_id)
-    os.makedirs(directory, exist_ok=True)
-
-    file_path = os.path.join(directory, "data.json")
-    with open(file_path, "w") as f:
-        json.dump(data, f, indent=4)
-
-    return file_path
