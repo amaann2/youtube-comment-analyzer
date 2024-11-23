@@ -4,7 +4,7 @@ import { analyzeComments } from "../../apis/youtube_analysis";
 import toast from "react-hot-toast";
 import Loader from "../Loader/Loader";
 const Hero = () => {
-    const [searchInput, setSearchInput] = useState("");
+    const [searchInput, setSearchInput] = useState("https://www.youtube.com/watch?v=MxYoLJ5elVo");
     const [maxComments, setMaxComments] = useState("6000");
     const [loading, setLoading] = useState(false);
 
