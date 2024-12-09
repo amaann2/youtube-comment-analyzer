@@ -13,6 +13,12 @@ This project is a web application designed to analyze YouTube video comments. By
 
 This project is still a work in progress. I am actively working on adding more features during my free time.
 
+## Current Working Screenshots
+
+![Screenshot 77](screenshot/Screenshot_77.png)
+![Screenshot 78](screenshot/Screenshot_78.png)
+![Screenshot 79](screenshot/Screenshot_79.png)
+
 ## Contribute or Share Ideas
 
 If you have any suggestions or ideas for improving this project, I’d love to hear from you! Feel free to reach out to me at [ansari028amaan@gmail.com](mailto:ansari028amaan@gmail.com).
