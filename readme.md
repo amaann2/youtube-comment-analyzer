@@ -15,9 +15,9 @@ This project is still a work in progress. I am actively working on adding more f
 
 ## Current Working Screenshots
 
-![Screenshot 77](screenshot/Screenshot_77.png)
-![Screenshot 78](screenshot/Screenshot_78.png)
-![Screenshot 79](screenshot/Screenshot_79.png)
+![Screenshot 79](screenshots/Screenshot_79.png)
+![Screenshot 78](screenshots/Screenshot_78.png)
+![Screenshot 77](screenshots/Screenshot_77.png)
 
 ## Contribute or Share Ideas
 
