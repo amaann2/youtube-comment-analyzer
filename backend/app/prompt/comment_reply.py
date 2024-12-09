@@ -28,6 +28,7 @@ def generate_ai_reply_prompt(comment: dict, video_details: dict):
         3. Brief but meaningful (2-3 sentences)
         4. Authentic to your role as the creator
         5. Professional yet conversational
+        6. Same language as the comment author (Eg: if the comment is in English but orally its Hindi then response in English but orally its Hindi)
 
         Important:
         - Write from your perspective as the video creator

@@ -13,6 +13,9 @@ const Analysis = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
+        document.title = `Analysis - ${id}`; // Set the page title to the id
+    }, [id]);
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 const data = await getAnalysisData(id);

@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-
+import os
 from app.utils.decorator import try_catch_decorator
 from app.services.analysis_service import process_youtube_data, sentiment_analysis, analyze_common_words, get_top_ten_comments
 from app.schemas.analysis_schema import AnalysisRequest, AiReplyRequest
@@ -8,6 +8,7 @@ from app.utils.id_utils import get_next_numeric_id
 from app.prompt.comment_reply import generate_ai_reply_prompt
 from app.helpers.llm_helper import get_llm
 from langchain_core.prompts import ChatPromptTemplate
+import google.generativeai as genai
 
 router = APIRouter(prefix="/analysis", tags=["YouTube Analysis"])
 
@@ -43,19 +44,27 @@ async def extract_youtube_data(request: AnalysisRequest):
 @router.post("/ai-reply")
 @try_catch_decorator()
 async def generate_ai_reply(request: AiReplyRequest):
-    llm = get_llm()
     prompt = generate_ai_reply_prompt(request.comment, request.video_details)
+
+    # GEMINI AI
+    genai.configure(api_key=os.getenv("GEMENI_AI_API_KEY"))
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    response = model.generate_content(prompt)
+    message = response.text
     
-    # Define the chat prompt template
-    prompt_template = ChatPromptTemplate.from_messages([
-        ("system", "You are a helpful assistant that can answer questions."),
-        ("user", "{input}")
-    ])
 
+    # OLLAMA LLM
 
-    prompt_with_input = prompt_template | llm
-    response = prompt_with_input.invoke({"input": prompt})
+    # llm = get_llm()
+    # prompt_template = ChatPromptTemplate.from_messages([
+    #     ("system", "You are a helpful assistant that can answer questions."),
+    #     ("user", "{input}")
+    # ])
+    # prompt_with_input = prompt_template | llm
+    # response = prompt_with_input.invoke({"input": prompt})
+    #message= response.content
+
     return {
-        "reply": response.content
+        "reply": message
     }
         
